@@ -12,6 +12,11 @@ class Quote:
         self.quote = quote
         self.person = person
 
+class Categ:
+    def __init__(self, _id, name):
+        self.id = _id
+        self.name = name
+
 def quotes(categ=None):
     if categ:
         query = 'SELECT * FROM quotes WHERE categ = ?'
@@ -24,6 +29,16 @@ def quotes(categ=None):
         quotes.append(*quote)
     
     return quotes
+
+def categs():
+    query = 'SELECT * FROM categs'
+    db_categs = list(cursor.execute(query))
+    ret_categs = []
+
+    for categ in db_categs:
+        ret_categs.append(Categ(*categ))
+
+    return ret_categs
 
 def add_quote(*args):
     query = 'INSERT INTO quotes (id, categ, quote, person) VALUES (null, ?, ?, ?)'
@@ -52,7 +67,7 @@ def cipher(text):
     return ciphered
 
 def decipher(text):
-    decrement = text[0]
+    decrement = int(text[0])
     deciphered = ''
 
     for letter in text:
@@ -77,3 +92,20 @@ def auth():
 def change_pw(new_pw):
     query = 'UPDATE _admin SET _password = ?'
     cursor.execute(query, new_pw)
+
+def del_quote(quote):
+    query = 'DELETE quotes WHERE id = ?'
+    cursor.execute(query, quote)
+
+def is_correct(password):
+    try:
+        query = 'SELECT _password FROM _admin'
+        actual_pw = ((list(cursor.execute(query)))[0])[0]
+
+        if decipher(actual_pw) == password:
+            return True
+
+        return False
+    
+    except:
+        return False
