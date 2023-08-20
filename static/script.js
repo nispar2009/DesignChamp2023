@@ -1,6 +1,6 @@
 dismissCookie = () => {
-    document.getElementById('cookie').style.display = 'none'
-    document.getElementById('effect').style.display = 'none'
+    document.getElementById("cookie").style.display = "none"
+    document.getElementById("effect").style.display = "none"
 }
 
 answer = (quotes, categs) => {
@@ -17,7 +17,7 @@ answer = (quotes, categs) => {
     }
     if (key == "about") {
         quotes.map(item => {
-            if (item.categ == categs[question.toUpperCase()]) {
+            if ((item.categ == categs[question.toUpperCase()]) | (item.quote.includes(question))) {
                 ans.push(item)
             }
         })

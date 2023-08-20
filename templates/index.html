@@ -20,7 +20,12 @@
 <h1 class="heading">Idealogic</h1>
 
 <img src="/static/logo.png" alt="💡" class="bot">
-<div class="card bg"><div id="ans"></div></div>
+<div class="card bg"><div id="ans">
+    <ul>
+        <li>Good morning. I am Idealogic.</li>
+        <li>How may I help you today?</li>
+    </ul>
+</div></div>
 <!-- Image Credits: valeriya_dor/Adobe Stock -->
 
 {% if auth %}
@@ -28,7 +33,7 @@
     By continuing to use this site as an admin, you hereby acknowledge that this site uses cookies.
     <a class="link" href="#" onclick="dismissCookie()">Dismiss</a>
 </div>
-<div class="cookie-bookmark"></div>
+<div class="cookie-bookmark" id="effect"></div>
 {% endif %}
 
 <div class="ask">
@@ -36,7 +41,7 @@
         <option value="by">Give me quotes by</option>
         <option value="about">Give me quotes about</option>
         <option value="all">Give me all you've got</option>
-    </select><input type="text" id="ask" class="form"><button class="btn btn-info" onclick="render(allQuotes, allCategs)">>_</button>
+    </select><input type="text" id="ask" class="form"><button class="btn btn-info" onclick="render(allQuotes, allCategs)">Submit</button>
 </div>
 <div class="bookmark"></div>
 
