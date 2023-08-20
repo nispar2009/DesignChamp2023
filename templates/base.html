@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}{% endblock %} &middot; Idealogic</title>
+
+    <link rel="shortcut icon" href="/static/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://nispar2009.github.io/spectrum-stylr-beta/light.css">
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@300&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <div class="nav-desktop">
+            <a class="nav-desktop-item nav-desktop-link" href="/">Home</a>
+            {% block admin %}{% endblock %}
+        </div>
+    </header>
+
+    <div class="questionnaire">{% block body %}{% endblock %}</div>
+    <div class="msg">
+        <div class="card">
+            <p>For a better experience, view on a larger screen.</p>
+        </div>
+    </div>
+
+    <script src="https://nispar2009.github.io/spectrum_stylr/Spectrum.js"></script>
+    <script src="/static/script.js"></script>
+    {% block script %}{% endblock %}
+</body>
+
+</html>

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Login{% endblock %}
+
+{% block admin %}
+|
+<a class="nav-desktop-item nav-desktop-link" href="/login">Login</a>
+{% endblock %}
+
+{% block body %}
+
+<h1 class="heading">Login</h1>
+
+<div class="login">
+    <form action="/auth" method="post">
+        <input type="password" class="form" placeholder="Password" name="password" id="password">
+        <button type="submit" class="btn btn-success">Login</button>
+    </form>
+</div>
+
+{% endblock %}

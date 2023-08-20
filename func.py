@@ -1,5 +1,5 @@
 import pyodbc
-from random import choice, randint
+from random import randint
 from flask import request
 
 conn = pyodbc.connect('Driver={SQL Server}; Server=NISANTH_PC\\SQLEXPRESS; Database=dc; Trusted_Connection=yes;')
@@ -17,16 +17,19 @@ class Categ:
         self.id = _id
         self.name = name
 
-def quotes(categ=None):
-    if categ:
-        query = 'SELECT * FROM quotes WHERE categ = ?'
-    else:
-        query = 'SELECT * FROM quotes'
+def categ_name(categ):
+    query = 'SELECT _name FROM categs WHERE id = ?'
+    result = cursor.execute(query, (categ,))
+    result = (list(result)[0])[0]\
+    
+    return result
 
+def quotes():
+    query = 'SELECT * FROM quotes'
     quotes = []
 
-    for quote in len(cursor.execute(query, categ)):
-        quotes.append(*quote)
+    for quote in list(cursor.execute(query)):
+        quotes.append(Quote(*quote))
     
     return quotes
 
@@ -40,22 +43,18 @@ def categs():
 
     return ret_categs
 
-def add_quote(*args):
-    query = 'INSERT INTO quotes (id, categ, quote, person) VALUES (null, ?, ?, ?)'
-    inject = (args)
-    cursor.execute(query, inject)
+def add_quote(categ, quote, person):
+    query = 'INSERT INTO quotes (categ, quote, person) VALUES (?, ?, ?)'
+    # inject = (args)
+    cursor.execute(query, categ, quote, person)
 
     conn.commit()
 
 def add_categ(name):
-    query = 'INSERT INTO categs (id, _name) VALUES (null, ?)'
+    query = 'INSERT INTO categs (_name) VALUES (?)'
     cursor.execute(query, name)
 
     conn.commit()
-
-def gen_quote(categ=None):
-    quote = choice(quotes(categ))
-    return quote
 
 def cipher(text):
     increment = randint(1, 9)
@@ -72,6 +71,8 @@ def decipher(text):
 
     for letter in text:
         deciphered += chr(ord(letter) - decrement)
+
+    deciphered = deciphered[1:]
 
     return deciphered
 
@@ -91,11 +92,13 @@ def auth():
 
 def change_pw(new_pw):
     query = 'UPDATE _admin SET _password = ?'
-    cursor.execute(query, new_pw)
+    cursor.execute(query, cipher(new_pw))
+    conn.commit()
 
 def del_quote(quote):
     query = 'DELETE quotes WHERE id = ?'
     cursor.execute(query, quote)
+    conn.commit()
 
 def is_correct(password):
     try:

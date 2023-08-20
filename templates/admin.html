@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin{% endblock %}
+
+{% block admin %}
+
+| <a href="/admin" class="nav-desktop-item nav-desktop-link">Admin</a>
+| <a href="/signout" class="nav-desktop-item nav-desktop-link">Sign out</a>
+
+{% endblock %}
+{% block body %}
+
+<h1 class="heading">Admin &middot; Idealogic</h1>
+
+<table class="table">
+    <tr>
+        <th>ID</th>
+        <th>Person</th>
+        <th>Category</th>
+        <th>Quote</th>
+        <th>Actions</th>
+    </tr>
+    {% for quote in quotes %}
+    <tr>
+        <td>{{ quote.id }}</td>
+        <td>{{ quote.person }}</td>
+        <td>{{ categ_name(quote.categ) }}</td>
+        <td>{{ quote.quote }}</td>
+        <td><button class="btn-danger btn" onclick="redirect('/del-quote-{{ quote.id }}')">Delete</button></td>
+    </tr>
+    {% endfor %}
+</table>
+<br>
+
+<a href="#" class="widget" onclick="toggle('quote')" id="change-quote">Add quote</a>
+<div class="card feature" id="quote">
+    <form action="/add-quote" method="post">
+        <input type="text" name="person" id="person" placeholder="Who said it?" class="form" required>
+        <br><br>
+        <input type="text" name="quote" id="quote" placeholder="What did (s)he say?" class="form" required>
+        <br><br>
+        <select name="categ" id="categ" class="form" title="Category">
+            {% for categ in categs %}
+            <option value="{{ categ.id }}">{{ categ.name }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+        <button type="submit" class="btn btn-success" {% if len(categs)==0 %} disabled{% endif %}>>_</button>
+    </form>
+</div>
+
+<a href="#" class="widget" onclick="toggle('category')" id="change-category">Add category</a>
+<div class="card feature" id="category">
+    <form action="/add-categ" method="post">
+        <input type="text" name="name" id="name" placeholder="What is it called?" class="form" required>
+        <br><br>
+        <button type="submit" class="btn btn-warning">>_</button>
+    </form>
+</div>
+
+<a href="#" class="widget" onclick="toggle('pw')" id="change-pw">Change password</a>
+
+<div class="card feature" id="pw">
+    <form action="/change-pw" method="post">
+        <input type="password" name="pw" id="pw" placeholder="New password? Okay." class="form" required>
+        <br><br>
+        <button type="submit" id="change" class="btn btn-info">>_</button>
+    </form>
+</div>
+
+{% endblock %}
