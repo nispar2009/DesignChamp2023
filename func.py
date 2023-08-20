@@ -2,7 +2,7 @@ import pyodbc
 from random import randint
 from flask import request
 
-conn = pyodbc.connect('Driver={SQL Server}; Server=NISANTH_PC\\SQLEXPRESS; Database=dc; Trusted_Connection=yes;')
+conn = pyodbc.connect('Driver={SQL Server}; Server=NISANTH_PC\\SQLEXPRESS; Database=idealogic; Trusted_Connection=yes;')
 cursor = conn.cursor()
 
 class Quote:

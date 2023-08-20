@@ -1,3 +1,3 @@
-USE dc
+USE idealogic
 CREATE TABLE quotes (id INT IDENTITY(1, 1) PRIMARY KEY, categ INT, quote TEXT, person TEXT)
 CREATE TABLE categs (id INTEGER IDENTITY(1, 1) PRIMARY KEY, _name TEXT)

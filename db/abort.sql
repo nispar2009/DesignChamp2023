@@ -1,1 +1,1 @@
-DROP DATABASE dc
+DROP DATABASE idealogic
